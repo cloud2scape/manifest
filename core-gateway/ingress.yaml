@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: core-gateway
+  namespace: backend
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/subnets: ${SUBNET1},${SUBNET2}
+    alb.ingress.kubernetes.io/load-balancer-name: market-alb
+spec:
+  ingressClassName: alb
+  defaultBackend:
+    service:
+      name: core-gateway
+      port:
+        number: 80
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: core-gateway
+                port:
+                  number: 80

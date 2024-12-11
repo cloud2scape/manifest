@@ -5,15 +5,15 @@ metadata:
   namespace: backend
   labels:
     app: core-gateway
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-    service.beta.kubernetes.io/aws-load-balancer-name: "market-nlb"
-    service.beta.kubernetes.io/aws-load-balancer-target-type: "ip"  # Pod 대신 EC2를 대상으로 설정
-    service.beta.kubernetes.io/aws-load-balancer-subnets: ${SUBNET1},${SUBNET2}
+  #annotations: # NLB로 사용할 때 설정
+    #service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    #service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+    #service.beta.kubernetes.io/aws-load-balancer-name: "market-nlb"
+    #service.beta.kubernetes.io/aws-load-balancer-target-type: "ip"  # Pod 대신 EC2를 대상으로 설정
+    #service.beta.kubernetes.io/aws-load-balancer-subnets: ${SUBNET1},${SUBNET2}
 
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - port: 80
       targetPort: 8080
